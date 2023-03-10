@@ -1,10 +1,10 @@
-// Function to generate a random computer choice
+// Generate a random number and assign the computer's choice
 function computerChoice() {
     let choices = ['rock', 'paper', 'scissors'];
     return choices[Math.floor(Math.random() * choices.length)];
 }
 
-// Function to compare the choices and determine the winner
+// Compare the user's choice and the computer's choice
 function compareChoices(userChoice, computerChoice) {
     if (userChoice === computerChoice) {
         return "It's a tie!";
@@ -29,15 +29,17 @@ function compareChoices(userChoice, computerChoice) {
     }
 }
 
-// Function to handle user input
+// Grab the user's choice by the ID of the option they click and display the result
 function handleInput() {
     let userChoice = this.id;
     let computer = computerChoice();
     let result = compareChoices(userChoice, computer);
+    let playAgain = document.getElementById('play-again');
     document.getElementById('result').innerHTML = result;
+    playAgain.style.display = 'block';
 }
 
-// Attach click handlers to the buttons
+// Attach click handlers to the game choices
 document.getElementById('rock').addEventListener('click', handleInput);
 document.getElementById('paper').addEventListener('click', handleInput);
 document.getElementById('scissors').addEventListener('click', handleInput);
