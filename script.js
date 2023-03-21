@@ -1,4 +1,19 @@
+// declare variables attach click handlers
 let winner = false;
+let turns = 3;
+let turnDisplay = document.getElementById('turns-left-number');
+turnDisplay.innerHTML = turns;
+let playAgainBtn = document.getElementById('play-again-btn');
+playAgainBtn.addEventListener('click', startAgain);
+
+// Attach click handlers to the game choices
+let rock = document.getElementById('rock');
+rock.addEventListener('click', handleInput);
+let paper = document.getElementById('paper');
+paper.addEventListener('click', handleInput);
+let scissors = document.getElementById('scissors');
+scissors.addEventListener('click', handleInput);
+
 // Generate a random number and assign the computer's choice
 function computerChoice() {
     let choices = ['rock', 'paper', 'scissors'];
@@ -34,31 +49,42 @@ function compareChoices(userChoice, computerChoice) {
 }
 
 // Grab the user's choice by the ID of the option they click and display the result
-let turns = 3;
-
 function handleInput() {
     if (turns > 0) {
         let userChoice = this.id;
         let computer = computerChoice();
         let result = compareChoices(userChoice, computer);
         let playAgain = document.getElementById('play-again');
-        document.getElementById('result').innerHTML = result + "<br>" + `${turns - 1}` + "turns left";
+        document.getElementById('result').innerHTML = result;
         playAgain.style.display = 'block';
         if (turns === 1) {
             playAgain.style.display = 'none';
         }
         turns--;
-        console.log(turns);
-        console.log(winner);
+        turnDisplay.innerHTML = turns;
+        if (turns === 0) {
+            deactivateChoices();
+            document.getElementById('result').innerHTML = result + "<br>" + "Game over!";
+        }
         if (winner) {
+            deactivateChoices();
             turns = 0;
+            turnDisplay.innerHTML = turns;
             playAgain.style.display = 'none';
             document.getElementById('result').innerHTML = result + "<br>" + "You win the game!";
         }
     }
 }
 
-// Attach click handlers to the game choices
-document.getElementById('rock').addEventListener('click', handleInput);
-document.getElementById('paper').addEventListener('click', handleInput);
-document.getElementById('scissors').addEventListener('click', handleInput);
+// Start the game again
+function startAgain() {
+    window.location.reload();
+}
+
+// deactivate game choices if the user has no turns left or wins the game
+function deactivateChoices() {
+    playAgainBtn.style.display = 'inline';
+    rock.style.display = 'none';
+    paper.style.display = 'none';
+    scissors.style.display = 'none';
+}

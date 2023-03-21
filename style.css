@@ -46,6 +46,9 @@ a {
     display: none;
     margin-top: 0rem;
 }
+#play-again-btn {
+    display: none;
+}
 @media (max-width: 768px) {
     span {
         margin: 1rem;
