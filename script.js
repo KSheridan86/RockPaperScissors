@@ -1,5 +1,6 @@
 // declare variables attach click handlers
 let winner = false;
+let storeUserChoices = [];
 let turns = 5;
 let turnDisplay = document.getElementById('turns-left-number');
 turnDisplay.innerHTML = turns;
@@ -52,6 +53,7 @@ function compareChoices(userChoice, computerChoice) {
 function handleInput() {
     if (turns > 0) {
         let userChoice = this.id;
+        storeUserChoices.push(userChoice);
         let computer = computerChoice();
         let result = compareChoices(userChoice, computer);
         let playAgain = document.getElementById('play-again');
@@ -64,27 +66,36 @@ function handleInput() {
         turnDisplay.innerHTML = turns;
         if (turns === 0) {
             deactivateChoices();
-            document.getElementById('result').innerHTML = result + "<br>" + "Game over!";
+            document.getElementById('result').innerHTML = result + "<br>" + "Game over!" + "<br>" + grammarChecker();
         }
         if (winner) {
             deactivateChoices();
             turns = 0;
             turnDisplay.innerHTML = turns;
             playAgain.style.display = 'none';
-            document.getElementById('result').innerHTML = result + "<br>" + "You win the game!";
+            document.getElementById('result').innerHTML = result + "<br>" + "You win the game!" + "<br>" + grammarChecker();
         }
     }
 }
 
-// Start the game again
-function startAgain() {
-    window.location.reload();
+// Check if the user has made more than one choice and display the correct wording
+function grammarChecker() {
+    if (storeUserChoices.length < 2) {
+        return "You chose: " + storeUserChoices;
+    } else {
+        return "Your choices were: " + storeUserChoices;
+    }
 }
 
-// deactivate game choices if the user has no turns left or wins the game
+// Deactivate game choices if the user has no turns left or wins the game
 function deactivateChoices() {
     playAgainBtn.style.display = 'inline';
     rock.style.display = 'none';
     paper.style.display = 'none';
     scissors.style.display = 'none';
+}
+
+// Start the game again
+function startAgain() {
+    window.location.reload();
 }
