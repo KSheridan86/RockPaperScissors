@@ -1,6 +1,6 @@
 // declare variables attach click handlers
 let winner = false;
-let turns = 3;
+let turns = 5;
 let turnDisplay = document.getElementById('turns-left-number');
 turnDisplay.innerHTML = turns;
 let playAgainBtn = document.getElementById('play-again-btn');
