@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build:
-    - image: circleci/node:14  # Choose an appropriate Node.js version here
+    - image: circleci/node:10.16.3
 
     steps:
       - checkout
