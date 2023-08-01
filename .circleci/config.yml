@@ -1,8 +1,7 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: circleci/node:14  # Choose an appropriate Node.js version here
+    - image: circleci/node:14  # Choose an appropriate Node.js version here
 
     steps:
       - checkout
@@ -11,10 +10,6 @@ jobs:
           name: Install Dependencies
           command: npm install
 
-    deploy:
-      docker:
-        - image: circleci/ssh:latest
-
       steps:
         - checkout
 
@@ -22,7 +17,7 @@ jobs:
             name: Copy Files to Nginx Root Directory
             command: |
               ssh -o StrictHostKeychecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS "export SERVER=\"$SERVER\"; export IMAGE_NAME=\"$IMAGE_NAME\"; export PRIVATE_KEY=\"$PRIVATE_KEY\"; rm -rf testApp/; git clone https://github.com/KSheridan86/testApp.git; source testApp/deploy.sh"
-              ssh ubuntu@<your-instance-ip> "sudo cp -r RockPaperScissors/* /var/www/html/"
-              ssh ubuntu@<your-instance-ip> "sudo chown -R www-data:www-data /var/www/html/"
-              ssh ubuntu@<your-instance-ip> "sudo service nginx restart"
+              # ssh ubuntu@<your-instance-ip> "sudo cp -r RockPaperScissors/* /var/www/html/"
+              # ssh ubuntu@<your-instance-ip> "sudo chown -R www-data:www-data /var/www/html/"
+              # ssh ubuntu@<your-instance-ip> "sudo service nginx restart"
 
